@@ -22,14 +22,14 @@ function drawItems(a, id) {
             if (result[i].category_id == id) {
                 section.innerHTML += `
                   <div onclick="openBox(${result[i].id})" class="grid-item item__box">
-                  ${result[i].name}
+                  <h2 class="box__titel">${result[i].name}</h2>
                   <div style="text-align: center; margin-top:30px;">
                   <hr class="main-hr"/>
-                  <button onClick="addItem(${result[i].name})" class="icon-btn add-btn">
+                  <button data-name="${result[i].name}" onclick="addItem(${result[i].id})" class="icon-btn add-btn add-btn${result[i].id}">
                     <div class="add-icon"></div>
                     <div class="btn-txt"">Add</div>
                   </button>
-                  <button class="icon-btn add-btn">  
+                  <button data-name="${result[i].name}" onclick="removeItem(${result[i].id})" class="icon-btn add-btn remove-btn${result[i].id}">  
                     <div class="btn-txt">Remove</div>
                   </button>
                   <div>
@@ -37,7 +37,7 @@ function drawItems(a, id) {
                     ${result[i].price}&#36;<br>
                   </div>
                   </div> `;
-                
+
                 // If item has description
                 if(result[i].description === ""){
                 }
@@ -64,10 +64,23 @@ function drawItems(a, id) {
   });
 };
 
-function addItem(item) {
-  orderArray.push(item);
+function addItem(a) {
+  let x = document.querySelector(`.add-btn${a}`);
+  let data = x.getAttribute('data-name');
+  orderArray.push(data);
 }
 
+function removeItem(a) {
+  let x = document.querySelector(`.remove-btn${a}`);
+  let data = x.getAttribute('data-name');
+
+  for( var i = 0; i < orderArray.length; i++){ 
+    if ( orderArray[i] === data) {
+      orderArray.splice(i, 1); 
+    }
+ }
+}
+//localStorage.clear;
 // Open detail box
 function openBox(a) {
     let x = document.querySelector(`.item__detail${a}`);
