@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css?family=Coiny');
+
+:root {
+	--underline-height: .5em;
+	--transition-duration : .5s;
+}
+
+body {
+	font-family: system-ui, sans-serif;
+	background: whitesmoke;
+	min-height: 100vh;
+}
+
+.navigation {
+	position: relative;
+	white-space: nowrap;
+	background: white;
+	padding: var(--underline-height) 0;
+	margin: 2em 0;
+  box-shadow: 0 1em 2em rgba(black, .05);
+    
+    &__item {
+        display: inline-block;
+        z-index: 10;
+        width: 20%;
+        padding: 1em 0;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &__icon {
+      width: 100px;
+      float: right;
+    }
+}
+
+.navigation_underline {
+	display: block;
+	position: absolute;
+	z-index: 0;
+	bottom: 0;
+	left: 0;
+	width: 20%;
+	pointer-events: none;
+	transition: transform var(--transition-duration) ease-in-out;
+	background: #222;
+	border-radius: .25em;
+	height: calc(var(--underline-height) / 2);
+  mix-blend-mode: initial;
+  border-radius: 100% 100% 0 0;
+
+	&:nth-child(1) {
+    background: green;
+		transition: calc(var(--transition-duration) * .8);
+	}
+	&:nth-child(2) {
+    background: white;
+		transition: calc(var(--transition-duration) * 1.2);
+  }
+  &:nth-child(3) { 
+    background: tomato; 
+  }
+}
+
+.main {
+
+  &__menulist {
+    background: #fff;
+    border-radius: 2px;
+    height: 300px;
+    margin: 1rem;
+    width: 300px;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    text-align: center;
+    float: right;
+  }
+
+  &__dropbtn {
+    width: 300px;
+    background-color: #222;
+    border: 1px solid black;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__dropdown {
+    position: relative;
+    display: inline-block;
+
+    &-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+
+      & a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+
+        &:hover {
+          background-color: #f1f1f1;
+        }
+      }
+    }
+  }
+}
+
+.main__dropdown:hover .main__dropdown-content {
+  display: block;
+}
+  
+.main__dropdown:hover .main__dropbtn {
+  background-color: lighten(black, 50%);
+}
+
+.item {
+  &__box {
+    width: 80%;
+    border: 1px solid black;
+  }
+
+  &__detail {
+    width: 100%;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+  }
+}
+
+.grid-container {
+  margin-left: 120px;
+  display: grid;
+  grid-template-columns: auto ;
+  padding: 10px;
+}
+
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.main-hr {
+  width: 30%;
+  border: none;
+  border-top: 1px solid #c3c3c3;
+}
+
+.icon-btn {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #cdcdcd;
+  background: white;
+  border-radius: 25px;
+  overflow: hidden;
+  position: relative;
+  transition: width 0.2s ease-in-out;
+}
+
+.add-btn:hover {
+  width: 120px;
+}
+
+.add-btn::before,
+.add-btn::after {
+  transition: width 0.2s ease-in-out, border-radius 0.2s ease-in-out;
+  content: "";
+  position: absolute;
+  height: 4px;
+  width: 10px;
+  top: calc(50% - 2px);
+  background: red;
+}
+
+.add-btn::after {
+  right: 14px;
+  overflow: hidden;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.add-btn::before {
+  left: 14px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.icon-btn:focus {
+  outline: none;
+}
+
+.btn-txt {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.add-btn:hover::before,
+.add-btn:hover::after {
+  width: 4px;
+  border-radius: 2px;
+}
+
+.add-btn:hover .btn-txt {
+  opacity: 1;
+}
+
+.add-icon::after,
+.add-icon::before {
+  transition: all 0.2s ease-in-out;
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 2px;
+  top: calc(50% - 10px);
+  background: red;
+  overflow: hidden;
+}
+
+.add-icon::before {
+  left: 22px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.add-icon::after {
+  right: 22px;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.add-btn:hover .add-icon::before {
+  left: 15px;
+  height: 4px;
+  top: calc(50% - 2px);
+}
+
+.add-btn:hover .add-icon::after {
+  right: 15px;
+  height: 4px;
+  top: calc(50% - 2px);
+}
