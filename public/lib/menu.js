@@ -59,7 +59,6 @@ function drawItems(a, id) {
         <a onClick="drawItems(products, ${result[i].id})">${result[i].name}</a>
       `;
     }
-    console.log(result);
     }  
   });
 };
@@ -68,6 +67,7 @@ function addItem(a) {
   let x = document.querySelector(`.add-btn${a}`);
   let data = x.getAttribute('data-name');
   orderArray.push(data);
+  menuList();
 }
 
 function removeItem(a) {
@@ -79,8 +79,31 @@ function removeItem(a) {
       orderArray.splice(i, 1); 
     }
  }
+ menuList();
 }
-//localStorage.clear;
+
+function menuList() {
+  let x = document.querySelector('.main__menulist');
+  x.innerHTML = `
+    <h2 class="main__menulist_titel">Added Items</h2><br>
+  `;
+  for (let i = 0; i < orderArray.length; i++) {
+    let count = 0;
+    let item = orderArray[i];
+    for (let x = 0; x < orderArray.length; x++) {
+        if (item === orderArray[x]) {
+            count++;
+        }
+    }
+
+    console.log(orderArray[i]);
+    x.innerHTML += `
+     ${count}x ${orderArray[i]}<br>
+    `;
+  }
+}
+
+//localStorage.clear();
 // Open detail box
 function openBox(a) {
     let x = document.querySelector(`.item__detail${a}`);
@@ -91,4 +114,16 @@ function openBox(a) {
     }
   }
 
+window.onunload = function(){
+  localStorage.setItem("order", JSON.stringify(orderArray));
+};
+
+window.onload = function(){
+  let storedData = localStorage.getItem("order");
+  if (storedData) {
+    orderArray = JSON.parse(storedData);
+  }
+  menuList();
+  console.log(orderArray);
+};
 drawItems(apivariable, 0);

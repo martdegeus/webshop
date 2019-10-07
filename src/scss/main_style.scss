@@ -27,6 +27,11 @@ body {
         text-align: center;
         cursor: pointer;
     }
+
+    &__icon {
+      width: 100px;
+      float: right;
+    }
 }
 
 .navigation_underline {
@@ -57,37 +62,51 @@ body {
   }
 }
 
-.main__dropbtn {
-  width: 300px;
-  background-color: #222;
-  border: 1px solid black;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-  cursor: pointer;
-}
-  
-.main__dropdown {
-  position: relative;
-  display: inline-block;
+.main {
 
-  &-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+  &__menulist {
+    background: #fff;
+    border-radius: 2px;
+    height: 300px;
+    margin: 1rem;
+    width: 300px;
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    text-align: center;
+    float: right;
+  }
 
-    & a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
+  &__dropbtn {
+    width: 300px;
+    background-color: #222;
+    border: 1px solid black;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
 
-      &:hover {
-        background-color: #f1f1f1;
+  &__dropdown {
+    position: relative;
+    display: inline-block;
+
+    &-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+
+      & a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+
+        &:hover {
+          background-color: #f1f1f1;
+        }
       }
     }
   }
@@ -101,17 +120,19 @@ body {
   background-color: lighten(black, 50%);
 }
 
-.item__box {
-  width: 80%;
-  border: 1px solid black;
-}
+.item {
+  &__box {
+    width: 80%;
+    border: 1px solid black;
+  }
 
-.item__detail {
-  width: 100%;
-  padding: 50px 0;
-  text-align: center;
-  margin-top: 20px;
-  display: none;
+  &__detail {
+    width: 100%;
+    padding: 50px 0;
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+  }
 }
 
 .grid-container {

@@ -22,6 +22,9 @@ body {
     padding: 1em 0;
     text-align: center;
     cursor: pointer; }
+  .navigation__icon {
+    width: 100px;
+    float: right; }
 
 .navigation_underline {
   display: block;
@@ -46,6 +49,15 @@ body {
   .navigation_underline:nth-child(3) {
     background: tomato; }
 
+.main__menulist {
+  background: #fff;
+  border-radius: 2px;
+  height: 300px;
+  margin: 1rem;
+  width: 300px;
+  box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+  text-align: center;
+  float: right; }
 .main__dropbtn {
   width: 300px;
   background-color: #222;
@@ -55,7 +67,6 @@ body {
   font-size: 16px;
   border: none;
   cursor: pointer; }
-
 .main__dropdown {
   position: relative;
   display: inline-block; }
@@ -83,7 +94,6 @@ body {
 .item__box {
   width: 80%;
   border: 1px solid black; }
-
 .item__detail {
   width: 100%;
   padding: 50px 0;
