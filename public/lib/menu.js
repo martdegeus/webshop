@@ -1,22 +1,24 @@
+// Variables
 let apivariable = "categories";
 let products = "products";
 let section = document.querySelector('.items');
 let orderArray = [];
 
-//fetch function
+// Fetch function
 function drawItems(a, id) {
   fetch(`https://competa-api.dev.competa.com/api/${a}`)
   .then(result => {
-    // Invalid
+    // IF Invalid
     if (result.status !== 200) {
+      console.log(result.status);
+      console.log(result);
     }
-
-    // If valid
+    // IF Valid
     return result.json();
   }).then(result => {
-    // If function has id
+    // IF Function has id
     if (id > 0){
-        //empty earlier categories
+        // Empty earlier category
         section.innerHTML = "";
         for (let i=0; i < result.length; i++){
             if (result[i].category_id == id) {
@@ -25,7 +27,7 @@ function drawItems(a, id) {
                   <h2 class="box__titel">${result[i].name}</h2>
                   <div style="text-align: center; margin-top:30px;">
                   <hr class="main-hr"/>
-                  <button data-name="${result[i].name}" onclick="addItem(${result[i].id})" class="icon-btn add-btn add-btn${result[i].id}">
+                  <button data-id="${result[i].id}" data-price="${result[i].price}" data-name="${result[i].name}" onclick="addItem(${result[i].id})" class="icon-btn add-btn add-btn${result[i].id}">
                     <div class="add-icon"></div>
                     <div class="btn-txt"">Add</div>
                   </button>
@@ -36,9 +38,10 @@ function drawItems(a, id) {
                   <div class="item__detail item__detail${result[i].id}">
                     ${result[i].price}&#36;<br>
                   </div>
-                  </div> `;
+                  </div>
+                `;
 
-                // If item has description
+                // IF Item has description
                 if(result[i].description === ""){
                 }
                 else{
@@ -46,12 +49,13 @@ function drawItems(a, id) {
                   x.innerHTML += `
                     ingredienten:<br>
                     ${result[i].description}
-                  `
+                  `;
                 };
             }
         }
     }
-    // If function has no id create links
+
+    // If Function has no id create links
     else{
     let link = document.querySelector('.main__dropdown-content');
     for (var i = 0; i < result.length; i++) {
@@ -63,23 +67,35 @@ function drawItems(a, id) {
   });
 };
 
+// Add Item
 function addItem(a) {
   let x = document.querySelector(`.add-btn${a}`);
   let data = x.getAttribute('data-name');
-  orderArray.push(data);
+  let price = x.getAttribute('data-price');
+  let id = x.getAttribute('data-id');
+  let amount = 1;
+  let obj = {name: data, priceamount: price, amount: amount, id: id};
+
+  cartItem = orderArray.find((item) => { return item.name == data});
+  if (cartItem) {
+    cartItem.amount++;
+  } 
+  else orderArray.push(obj);
+
   menuList();
 }
 
+// Remove Item
 function removeItem(a) {
   let x = document.querySelector(`.remove-btn${a}`);
   let data = x.getAttribute('data-name');
+  cartItem = orderArray.find((item) => { return item.name == data});
+  cartItem.amount--;
+  if (cartItem.amount == 0) {
+    orderArray.splice(data, 1);
+  }
 
-  for( var i = 0; i < orderArray.length; i++){ 
-    if ( orderArray[i] === data) {
-      orderArray.splice(i, 1); 
-    }
- }
- menuList();
+  menuList();
 }
 
 function menuList() {
@@ -87,32 +103,26 @@ function menuList() {
   x.innerHTML = `
     <h2 class="main__menulist_titel">Added Items</h2><br>
   `;
-  for (let i = 0; i < orderArray.length; i++) {
-    let count = 0;
-    let item = orderArray[i];
-    for (let x = 0; x < orderArray.length; x++) {
-        if (item === orderArray[x]) {
-            count++;
-        }
-    }
 
-    console.log(orderArray[i]);
+  for (let i = 0; i < orderArray.length; i++) {
     x.innerHTML += `
-     ${count}x ${orderArray[i]}<br>
+      <p class="${orderArray[i].id}">${orderArray[i].amount}x ${orderArray[i].name} 
+        - &euro;${orderArray[i].priceamount * orderArray[i].amount} 
+      </p>
     `;
   }
 }
 
-//localStorage.clear();
 // Open detail box
 function openBox(a) {
-    let x = document.querySelector(`.item__detail${a}`);
-    if (x.style.display === "none") {
-      x.style.display = "block";
-    } else {
-      x.style.display = "none";
-    }
+  let x = document.querySelector(`.item__detail${a}`);
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } 
+  else {
+    x.style.display = "none";
   }
+}
 
 window.onunload = function(){
   localStorage.setItem("order", JSON.stringify(orderArray));
@@ -124,6 +134,7 @@ window.onload = function(){
     orderArray = JSON.parse(storedData);
   }
   menuList();
-  console.log(orderArray);
 };
+
+//localStorage.clear();
 drawItems(apivariable, 0);
